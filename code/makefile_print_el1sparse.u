@@ -1,0 +1,33 @@
+########################################################################
+# The C compiler must be an ansi C compiler.  A C++ compiler is even
+# better.  The quad precision package, QuadPrec, only works with a C++
+# compiler.
+#
+# Uncomment one of the following two lines:
+CC = gcc
+########################################################################
+
+C = ../common
+A = ../amplsolver
+Q = ../Quad
+
+.SUFFIXES: .c .o
+
+OPT = -O
+
+.c.o:
+	$(CC) -c $(OPT) -I. -I$C -I$A -I$Q $*.c
+
+########################################################################
+# Some versions of the parametric simplex method are available.  
+#
+# Uncomment one of the following two lines:
+SOLVER = printfiles_el1sparse.o
+########################################################################
+
+
+printfiles_el1sparse:  $(SOLVER) 
+	$(CC) -o printfiles_el1sparse $(SOLVER) -lm
+
+printfiles_el1sparse.o:      printfiles_el1sparse.c	myalloc.h
+

@@ -1,0 +1,51 @@
+########################################################################
+# The C compiler must be an ansi C compiler.  A C++ compiler is even
+# better.  The quad precision package, QuadPrec, only works with a C++
+# compiler.
+#
+# Uncomment one of the following two lines:
+CC = gcc
+#CC = CC -DQuadPrec    # In this case, type: make quadsimpo
+########################################################################
+
+C = ../common
+A = ../amplsolver
+Q = ../Quad
+
+.SUFFIXES: .c .o
+
+OPT = -O
+
+.c.o:
+	$(CC) -c $(OPT) -I. -I$C -I$A -I$Q $*.c
+
+COMMON =  tree.o heap.o linalg.o
+
+
+########################################################################
+# There are two versions of the matrix factorization code.  One, found in
+# lueta.c, uses eta matrices to solve systems of equations involving a 
+# subsequent basis matrix.  The other, found in lurefac.c, refactors the
+# basis matrix using the previous factorization as a starting point.
+#
+# Uncomment one of the following two lines:
+LU = lu.o
+########################################################################
+
+########################################################################
+# Some versions of the parametric simplex method are available.  
+#
+# Uncomment one of the following two lines:
+SOLVER = el1sparse.o
+########################################################################
+
+
+el1sparse:  $(LU) $(COMMON) $(SOLVER) 
+	$(CC) -o el1sparse $(LU) $(COMMON) $(SOLVER) -lm
+
+heap.o:	      heap.c	       heap.h
+linalg.o:     linalg.c linalg.h	  myalloc.h	macros.h
+tree.o:	      tree.c   tree.h
+lu.o: lu.c lu.h   myalloc.h 		 macros.h linalg.h heap.h tree.h
+el1sparse.o:      el1sparse.c	lu.h   myalloc.h	 macros.h linalg.h
+
