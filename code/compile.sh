@@ -1,3 +1,6 @@
+#remove residue
+sh clean.sh
+
 #after moving to directory, compile all necessary files
 make -f makefile_el1.u
 make -f makefile_el1sparse.u
@@ -41,9 +44,9 @@ matlab -r run_MirrorProx_size
 R CMD BATCH read_ampl.R
 R CMD BATCH process_loqo.R
 R CMD BATCH process_loqo_size.R
+R CMD BATCH rmUnbounded.R
+R CMD BATCH rmUnbounded_size.R
 R CMD BATCH plotter_xtable.R
 R CMD BATCH plotter_xtable_size.R
 matlab -r plotres
 matlab -r plotres_size
-
-

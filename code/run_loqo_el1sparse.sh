@@ -1,6 +1,6 @@
 for num in 2 10 20 30 40 50 60 70 80 90 100 125 150
 do
-	for j in 0 1
+	for j in 0 1 2 3 4 
 	do
 		rm -f loqo_res_${num}_${j}_el1sparse.out
 		./printfiles_el1sparse $num $j

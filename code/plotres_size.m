@@ -10,10 +10,8 @@ loqo_el1 = csvread('res_loqo_el1_size.csv');
 
 spar = [102+(0:15)*20];
 spar2 = [102,202,302,402];
-spar3 = [102,202];
 len1 = length(spar);
 len2 = length(spar2);
-len3 = length(spar3);
 
 avg_time_sparse = zeros(len1,1); %simplex kcs
 sd_time_sparse = zeros(len1,1);
@@ -29,9 +27,8 @@ sd_time_mirror = zeros(len1,1);
 
 avg_time_loqosparse = zeros(len2,1); %ipm kcs
 sd_time_loqosparse = zeros(len2,1);
-
-avg_time_loqo = zeros(len3,1); %ipm
-sd_time_loqo = zeros(len3,1);
+avg_time_loqo = zeros(len2,1); %ipm
+sd_time_loqo = zeros(len2,1);
 
 
 
@@ -61,23 +58,18 @@ for i=1:len2
     avg_time_loqosparse(i) = mean(loqo_el1sparse(counter_2:(counter_2+1),2));
     sd_time_loqosparse(i) = std(loqo_el1sparse(counter_2:(counter_2+1),2));
     
-    counter_2 = counter_2+2;
-end
-
-counter_2 = 1;
-for i=1:len3
+    
     avg_time_loqo(i) = mean(loqo_el1(counter_2:(counter_2+1),2));
     sd_time_loqo(i) = std(loqo_el1(counter_2:(counter_2+1),2));
    
     counter_2 = counter_2+2;
 end
 
-
 fig = figure(1);
-set(fig, 'Position', [1 1 900 600]);
+set(fig, 'position', [100 100 1200 900]);
 semilogy(spar,avg_time_sparse,'bv',...
     spar,avg_time,'b^',...
-spar2,avg_time_loqosparse,'gv',spar3,avg_time_loqo,'g^',...
+spar2,avg_time_loqosparse,'gv',spar2,avg_time_loqo,'g^',...
 spar,avg_time_l1ls,'rv',...
 spar,avg_time_fhtp,'kv',...
 	spar,avg_time_mirror,'mv',...
@@ -85,7 +77,7 @@ spar,avg_time_fhtp,'kv',...
 hold on;
 semilogy(spar,avg_time_sparse,'b-',...
     spar,avg_time,'b-',...
-spar2,avg_time_loqosparse,'gv',spar3,avg_time_loqo,'g^',...
+spar2,avg_time_loqosparse,'gv',spar2,avg_time_loqo,'g^',...
 spar,avg_time_l1ls,'r-',...
 spar,avg_time_fhtp,'k-',...
 	spar,avg_time_mirror,'m-',...
@@ -93,7 +85,7 @@ spar,avg_time_fhtp,'k-',...
 errorbar(spar,avg_time_sparse,sd_time_sparse,'b');
 errorbar(spar,avg_time,sd_time,'b');
 errorbar(spar2,avg_time_loqosparse,sd_time_loqosparse,'g');
-errorbar(spar3,avg_time_loqo,sd_time_loqo,'g');
+errorbar(spar2,avg_time_loqo,sd_time_loqo,'g');
 errorbar(spar,avg_time_l1ls,sd_time_l1ls,'r');
 errorbar(spar,avg_time_fhtp,sd_time_fhtp,'k');
 errorbar(spar,avg_time_mirror,sd_time_mirror,'m');

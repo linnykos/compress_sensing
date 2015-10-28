@@ -2,22 +2,20 @@ library(xtable)
 
 alldat = list(0)
 
-alldat[[1]] = read.csv("el1sparse_size.csv",header=FALSE) 
-alldat[[2]] = read.csv("res_loqo_el1sparse_size.csv",header=FALSE)
+file.names = c("el1sparse_size.csv", "res_loqo_el1sparse_size.csv", "el1_size.csv",
+ "res_loqo_el1_size.csv", "l1ls_res_size.csv", "mirrorprox_res_size.csv", "fhtp_res_size.csv")
 
-alldat[[3]] = read.csv("el1_size.csv",header=FALSE)
-alldat[[4]] = read.csv("res_loqo_el1_size.csv",header=FALSE)
-
-alldat[[5]] = read.csv("l1ls_res_size.csv",header=FALSE)
-alldat[[6]] = read.csv("mirrorprox_res_size.csv",header=FALSE)
-alldat[[7]] = read.csv("fhtp_res_size.csv",header=FALSE)
+#show the number of unbounded and remove these columns
+for(i in 1:7){
+  alldat[[i]] = read.csv(file.names[i], header=FALSE) 
+}
 
 for(i in 1:7){
   val = sort(unique(alldat[[i]][,1]),decreasing=FALSE)
   tmp = matrix(NA,ncol=ncol(alldat[[i]]),nrow=length(val))
   for(j in 1:length(val)){
     idx = which(alldat[[i]][,1] == val[j])
-    tmp[j,] = apply(alldat[[i]][idx,],2,mean)
+    tmp[j,] = apply(alldat[[i]][idx,],2,median)
   }
   alldat[[i]] = tmp
 }

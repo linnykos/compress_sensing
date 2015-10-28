@@ -2,23 +2,19 @@ library(xtable)
 
 alldat = list(0)
 
-alldat[[1]] = read.csv("el1sparse.csv",header=FALSE) 
-alldat[[2]] = read.csv("res_loqo_el1sparse.csv",header=FALSE)
+files.names = c("el1sparse.csv", "res_loqo_el1sparse.csv", "el1.csv", "res_loqo_el1.csv",
+ "l1ls_res.csv", "mirrorprox_res.csv", "fhtp_res.csv", "fhtp_res_agnostic.csv")
 
-alldat[[3]] = read.csv("el1.csv",header=FALSE)
-alldat[[4]] = read.csv("res_loqo_el1.csv",header=FALSE)
-
-alldat[[5]] = read.csv("l1ls_res.csv",header=FALSE)
-alldat[[6]] = read.csv("mirrorprox_res.csv",header=FALSE)
-alldat[[7]] = read.csv("fhtp_res.csv",header=FALSE)
-alldat[[8]] = read.csv("fhtp_res_agnostic.csv",header=FALSE)
+for(i in 1:8){
+  alldat[[i]] = read.csv(file.names[i], header=FALSE)
+}
 
 for(i in 1:8){
   val = sort(unique(alldat[[i]][,1]),decreasing=FALSE)
   tmp = matrix(NA,ncol=ncol(alldat[[i]]),nrow=length(val))
   for(j in 1:length(val)){
     idx = which(alldat[[i]][,1] == val[j])
-    tmp[j,] = apply(alldat[[i]][idx,],2,mean)
+    tmp[j,] = apply(alldat[[i]][idx,],2,median)
   }
   alldat[[i]] = tmp
 }
