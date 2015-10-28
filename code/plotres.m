@@ -9,10 +9,8 @@ loqo_el1 = csvread('res_loqo_el1.csv');
 
 spar = [2*(1:50),125,150];
 spar2 = [2,10,20,30,40,50,60,70,80,90,100,125,150];
-spar3 = [2,20,50,70,100,150];
 len1 = length(spar);
 len2 = length(spar2);
-len3 = length(spar3);
 
 avg_time_sparse = zeros(len1,1); %param matrix 
 sd_time_sparse = zeros(len1,1);
@@ -22,8 +20,8 @@ avg_time_l1ls = zeros(len1,1); %l1ls
 sd_time_l1ls = zeros(len1,1);
 avg_time_loqosparse = zeros(len2,1); %loqo el1sparse
 sd_time_loqosparse = zeros(len2,1);
-avg_time_loqo = zeros(len3,1); %loqo el1
-sd_time_loqo = zeros(len3,1);
+avg_time_loqo = zeros(len2,1); %loqo el1
+sd_time_loqo = zeros(len2,1);
 avg_time_fhtp = zeros(len1,1); %fhtp
 sd_time_fhtp = zeros(len1,1);
 avg_time_fhtpa = zeros(len1,1); %fhtp agnostic
@@ -53,26 +51,20 @@ avg_time_mirror(i) = mean(mirror(counter_10:(counter_10+9),2));
 sd_time_mirror(i) = std(mirror(counter_10:(counter_10+9),2));
 
 
-    counter_10 = counter_10+10;
+    counter_10 = counter_10+9;
 end
 
 
-counter_2 = 1;
+counter_5 = 1;
 for i=1:len2
-    avg_time_loqosparse(i) = mean(loqo_el1sparse(counter_2:(counter_2+1),2));
-    sd_time_loqosparse(i) = std(loqo_el1sparse(counter_2:(counter_2+1),2));
-    
-    counter_2 = counter_2+2;
-end
+    avg_time_loqosparse(i) = mean(loqo_el1sparse(counter_5:(counter_5+4),2));
+    sd_time_loqosparse(i) = std(loqo_el1sparse(counter_5:(counter_5+4),2));
 
-counter_2 = 1;
-for i=1:len3
-    avg_time_loqo(i) = mean(loqo_el1(counter_2:(counter_2+1),2));
-    sd_time_loqo(i) = std(loqo_el1(counter_2:(counter_2+1),2));
-   
-    counter_2 = counter_2+2;
+    avg_time_loqo(i) = mean(loqo_el1(counter_5:(counter_5+4),2));
+    sd_time_loqo(i) = std(loqo_el1(counter_5:(counter_5+4),2));
+     
+    counter_5 = counter_5+4;
 end
-%%
 
 
 
@@ -80,7 +72,7 @@ fig = figure(1);
 set(fig, 'Position', [100 100 1200 900]);
 semilogy(spar,avg_time_sparse,'bv',...
     spar,avg_time,'b^',...
-spar2,avg_time_loqosparse,'gv',spar3,avg_time_loqo,'g^',...
+spar2,avg_time_loqosparse,'gv',spar2,avg_time_loqo,'g^',...
 spar,avg_time_l1ls,'rv',...
 spar,avg_time_fhtp,'kv',...
 spar,avg_time_fhtpa,'k^',...
@@ -90,7 +82,7 @@ hold on;
 semilogy(spar,avg_time_sparse,'b-',...
     spar,avg_time,'b-',...
 spar,avg_time_l1ls,'r-',...
-spar2,avg_time_loqosparse,'g-',spar3,avg_time_loqo,'g-',...
+spar2,avg_time_loqosparse,'g-',spar2,avg_time_loqo,'g-',...
 spar,avg_time_fhtp,'k-',...
 spar,avg_time_fhtpa,'k-',...
 	spar,avg_time_mirror,'m-',...

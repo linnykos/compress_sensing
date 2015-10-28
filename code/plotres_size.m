@@ -53,16 +53,16 @@ sd_time_mirror(i) = std(mirror(counter_10:(counter_10+9),2));
     counter_10 = counter_10+9;
 end
 
-counter_2 = 1;
+counter_5 = 1;
 for i=1:len2
-    avg_time_loqosparse(i) = mean(loqo_el1sparse(counter_2:(counter_2+1),2));
-    sd_time_loqosparse(i) = std(loqo_el1sparse(counter_2:(counter_2+1),2));
+    avg_time_loqosparse(i) = mean(loqo_el1sparse(counter_5:(counter_5+4),2));
+    sd_time_loqosparse(i) = std(loqo_el1sparse(counter_5:(counter_5+4),2));
     
     
-    avg_time_loqo(i) = mean(loqo_el1(counter_2:(counter_2+1),2));
-    sd_time_loqo(i) = std(loqo_el1(counter_2:(counter_2+1),2));
+    avg_time_loqo(i) = mean(loqo_el1(counter_5:(counter_5+4),2));
+    sd_time_loqo(i) = std(loqo_el1(counter_5:(counter_5+4),2));
    
-    counter_2 = counter_2+2;
+    counter_5 = counter_5+4;
 end
 
 fig = figure(1);
